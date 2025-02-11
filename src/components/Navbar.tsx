@@ -3,13 +3,7 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import { Button } from "./ui/button";
-
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Products", href: "/products" },
-  { name: "Rent", href: "/rent" },
-  { name: "About", href: "/about" },
-];
+import { navigation } from "@/lib/constants";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

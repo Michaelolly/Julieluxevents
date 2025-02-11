@@ -2,6 +2,7 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { navigation } from "@/lib/constants";
 
 const featuredProducts = [
   {
