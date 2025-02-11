@@ -14,7 +14,7 @@ export default function Navbar() {
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
-              PartyGearHub
+              Julieluxevents
             </span>
           </a>
         </div>
@@ -55,7 +55,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             <a href="/" className="-m-1.5 p-1.5">
               <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
-                PartyGearHub
+                Julieluxevents
               </span>
             </a>
             <button

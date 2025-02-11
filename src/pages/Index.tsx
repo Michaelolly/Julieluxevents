@@ -202,7 +202,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
-              PartyGearHub
+              Julieluxevents
             </span>
             <p className="mt-4 text-gray-400 max-w-md">
               Making your celebrations extraordinary with premium party equipment rentals and sales.
@@ -225,7 +225,7 @@ export default function Index() {
             <ul className="space-y-2 text-gray-400">
               <li>1234 Party Street</li>
               <li>Celebration City, PC 12345</li>
-              <li>contact@partygearhub.com</li>
+              <li>contact@julieluxevents.com</li>
               <li>(555) 123-4567</li>
             </ul>
           </div>
