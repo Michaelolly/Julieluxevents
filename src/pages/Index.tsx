@@ -2,7 +2,10 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { navigation } from "@/lib/constants";
+import { navigation, PurchaseMode } from "@/lib/constants";
+import { Toggle } from "@/components/ui/toggle";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 const featuredProducts = [
   {
@@ -41,6 +44,8 @@ const categories = [
 ];
 
 export default function Index() {
+  const [mode, setMode] = useState<PurchaseMode>("buy");
+
   return (
     <div className="bg-white min-h-screen">
       <Navbar />
@@ -71,9 +76,33 @@ export default function Index() {
       {/* Featured Products */}
       <section className="px-6 py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-12">
-            Featured Equipment
-          </h2>
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Featured Equipment
+            </h2>
+            <div className="flex items-center gap-4 bg-white rounded-lg p-1 shadow-sm">
+              <Button
+                variant="ghost"
+                className={cn(
+                  "transition-colors",
+                  mode === "buy" && "bg-primary-100 text-primary-500"
+                )}
+                onClick={() => setMode("buy")}
+              >
+                Buy
+              </Button>
+              <Button
+                variant="ghost"
+                className={cn(
+                  "transition-colors",
+                  mode === "rent" && "bg-primary-100 text-primary-500"
+                )}
+                onClick={() => setMode("rent")}
+              >
+                Rent
+              </Button>
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProducts.map((product) => (
               <div
@@ -92,11 +121,15 @@ export default function Index() {
                   <p className="mt-2 text-sm text-gray-600">{product.description}</p>
                   <div className="mt-4 flex justify-between items-center">
                     <div>
-                      <p className="text-sm font-medium text-gray-900">Buy: {product.price}</p>
-                      <p className="text-sm text-gray-500">Rent: {product.rentalPrice}</p>
+                      <p className="text-sm font-medium text-gray-900">
+                        {mode === "buy" ? product.price : product.rentalPrice}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {mode === "rent" && "Minimum 1 day rental"}
+                      </p>
                     </div>
                     <Button variant="outline" size="sm">
-                      View Details
+                      {mode === "buy" ? "Add to Cart" : "Rent Now"}
                     </Button>
                   </div>
                 </div>

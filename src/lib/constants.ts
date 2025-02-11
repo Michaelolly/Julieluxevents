@@ -5,3 +5,5 @@ export const navigation = [
   { name: "Rent", href: "/rent" },
   { name: "About", href: "/about" },
 ];
+
+export type PurchaseMode = "buy" | "rent";
