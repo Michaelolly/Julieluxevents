@@ -1,7 +1,7 @@
 
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Search, Star, Calendar, ShoppingBag, Phone, Mail, MapPin, Instagram } from "lucide-react";
 import { navigation, categories, featuredProducts, testimonials, PurchaseMode } from "@/lib/constants";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -26,7 +26,7 @@ export default function Index() {
             <div className="animate-fadeIn mt-10 flex items-center justify-center gap-x-6">
               <Button size="lg" className="group">
                 Let's celebrate
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <Calendar className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -55,6 +55,7 @@ export default function Index() {
                 <p className="text-gray-600 mb-6">{category.description}</p>
                 <Button variant="outline" className="group-hover:bg-primary-100">
                   Learn More
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </a>
             ))}
@@ -65,7 +66,8 @@ export default function Index() {
       {/* Featured Products */}
       <section className="px-6 py-16">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-12 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-12 text-center flex items-center justify-center gap-2">
+            <ShoppingBag className="h-8 w-8 text-primary-400" />
             Rental Collection
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -92,7 +94,8 @@ export default function Index() {
                   <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
                   <p className="mt-2 text-sm text-gray-600">{product.description}</p>
                   <div className="mt-4">
-                    <p className="text-lg font-medium text-gray-900">
+                    <p className="text-lg font-medium text-gray-900 flex items-center gap-2">
+                      <Star className="h-5 w-5 text-primary-400" />
                       Price: {mode === "buy" ? product.price : product.rentalPrice}
                     </p>
                   </div>
@@ -109,6 +112,7 @@ export default function Index() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="bg-white p-8 rounded-2xl shadow-sm">
+                <Star className="h-6 w-6 text-primary-400 mb-4" />
                 <p className="text-gray-600 italic mb-4">{testimonial.text}</p>
                 <p className="font-semibold text-gray-900">{testimonial.name}</p>
               </div>
@@ -133,7 +137,8 @@ export default function Index() {
             <ul className="space-y-2">
               {navigation.map((item) => (
                 <li key={item.name}>
-                  <a href={item.href} className="text-gray-400 hover:text-white transition-colors">
+                  <a href={item.href} className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+                    <item.icon className="h-4 w-4" />
                     {item.name}
                   </a>
                 </li>
@@ -143,10 +148,26 @@ export default function Index() {
           <div>
             <h3 className="text-sm font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-gray-400">
-              <li>300 Event Street</li>
-              <li>Toronto, ON M1M 1M1</li>
-              <li>contact@julieluxevents.com</li>
-              <li>(647) 123-4567</li>
+              <li className="flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                300 Event Street
+              </li>
+              <li className="flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                Toronto, ON M1M 1M1
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                contact@julieluxevents.com
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4" />
+                (647) 123-4567
+              </li>
+              <li className="flex items-center gap-2">
+                <Instagram className="h-4 w-4" />
+                @julieluxevents
+              </li>
             </ul>
           </div>
         </div>

@@ -1,14 +1,15 @@
+import { Home, Heart, Palette, Box, DollarSign, Image, Mail, ShoppingBag, BookOpen, LucideIcon } from "lucide-react";
 
-export const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Wedding Package", href: "/wedding-package" },
-  { name: "Event Styling", href: "/event-styling" },
-  { name: "Rental", href: "/rental" },
-  { name: "Pricing", href: "/pricing" },
-  { name: "Wedding Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
-  { name: "Shop", href: "/shop" },
-  { name: "Blog", href: "/blog" },
+export const navigation: { name: string; href: string; icon: LucideIcon }[] = [
+  { name: "Home", href: "/", icon: Home },
+  { name: "Wedding Package", href: "/wedding-package", icon: Heart },
+  { name: "Event Styling", href: "/event-styling", icon: Palette },
+  { name: "Rental", href: "/rental", icon: Box },
+  { name: "Pricing", href: "/pricing", icon: DollarSign },
+  { name: "Wedding Gallery", href: "/gallery", icon: Image },
+  { name: "Contact", href: "/contact", icon: Mail },
+  { name: "Shop", href: "/shop", icon: ShoppingBag },
+  { name: "Blog", href: "/blog", icon: BookOpen },
 ];
 
 export type PurchaseMode = "buy" | "rent";
