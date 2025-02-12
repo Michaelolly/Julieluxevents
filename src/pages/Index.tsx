@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Star, Calendar, ShoppingBag, Phone, Mail, MapPin, Instagram } from "lucide-react";
@@ -163,48 +162,71 @@ export default function Index() {
       <footer className="bg-gray-900 text-white px-6 py-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
-              Julieluxevents
-            </span>
-            <p className="mt-4 text-gray-400 max-w-md">
-              Making your celebrations extraordinary with premium event styling and rental services.
+            <h3 className="text-lg font-semibold mb-4">ABOUT US</h3>
+            <p className="text-gray-400 max-w-md">
+              Event Rentals for Your Home or Business. Tables, tents, and more! At affordable prices. You pick up or we deliver.
             </p>
+            <div className="mt-6">
+              <h4 className="font-semibold mb-2">Get in Touch</h4>
+              <p className="text-gray-400">General Inquiries:</p>
+              <a href="mailto:contactus@therentalbrothers.com" className="text-primary-400 hover:text-primary-300">
+                contactus@therentalbrothers.com
+              </a>
+              <p className="text-gray-400 mt-2">
+                <a href="tel:403-259-5150" className="text-primary-400 hover:text-primary-300">
+                  403-259-5150
+                </a>
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold mb-4">Quick Links</h3>
+
+          <div className="col-span-1">
+            <h3 className="text-lg font-semibold mb-4">NAVIGATION</h3>
             <ul className="space-y-2">
-              {navigation.map((item) => (
-                <li key={item.name}>
-                  <a href={item.href} className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
-                    <item.icon className="h-4 w-4" />
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a href="/" className="text-gray-400 hover:text-white transition-colors">Home</a>
+              </li>
+              <li>
+                <a href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+              </li>
+              <li>
+                <a href="/rentals" className="text-gray-400 hover:text-white transition-colors">Our Rentals</a>
+              </li>
+              <li>
+                <a href="/resources" className="text-gray-400 hover:text-white transition-colors">Resources</a>
+              </li>
+              <li>
+                <a href="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</a>
+              </li>
             </ul>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                300 Event Street
+
+          <div className="col-span-1">
+            <h3 className="text-lg font-semibold mb-4">RENTAL SERVICES</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="/rentals/stage" className="text-gray-400 hover:text-white transition-colors">Stage Rentals</a>
               </li>
-              <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                Toronto, ON M1M 1M1
+              <li>
+                <a href="/rentals/stageline" className="text-gray-400 hover:text-white transition-colors">Stageline Rentals</a>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                contact@julieluxevents.com
+              <li>
+                <a href="/rentals/tent" className="text-gray-400 hover:text-white transition-colors">Tent Rentals</a>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4" />
-                (647) 123-4567
+              <li>
+                <a href="/rentals/trade-show" className="text-gray-400 hover:text-white transition-colors">Trade Show Rentals</a>
               </li>
-              <li className="flex items-center gap-2">
-                <Instagram className="h-4 w-4" />
-                @julieluxevents
+              <li>
+                <a href="/rentals/stampede" className="text-gray-400 hover:text-white transition-colors">Stampede Rentals</a>
+              </li>
+              <li>
+                <a href="/rentals/wedding" className="text-gray-400 hover:text-white transition-colors">Wedding Rentals</a>
+              </li>
+              <li>
+                <a href="/financing" className="text-gray-400 hover:text-white transition-colors">Event Financing</a>
+              </li>
+              <li>
+                <a href="/rentals/photo-booth" className="text-gray-400 hover:text-white transition-colors">Photo Booth Rentals</a>
               </li>
             </ul>
           </div>
