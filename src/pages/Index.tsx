@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Star, Calendar, ShoppingBag, Phone, Mail, MapPin, Instagram } from "lucide-react";
@@ -15,10 +14,20 @@ export default function Index() {
       
       {/* Hero Section */}
       <div className="relative isolate px-6 pt-14 lg:px-8">
+        <div className="absolute inset-0 -z-10">
+          <img
+            src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07"
+            alt="Hero background"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-white" />
+        </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
-            <h1 className="animate-fadeIn text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Make your dream event come true
+            <h1 className="animate-fadeIn font-serif text-5xl font-bold tracking-tight text-gray-900 sm:text-7xl mb-4">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 font-extrabold">
+                Julieluxevents
+              </span>
             </h1>
             <p className="animate-fadeIn mt-6 text-lg leading-8 text-gray-600">
               From subtly chic, to opulent and even theatrical, Julieluxevents is highly regarded for its expertise and impeccable service bringing client's fantasies to life in a spectacular and memorable style.
@@ -40,6 +49,34 @@ export default function Index() {
           </div>
         </div>
       </div>
+
+      {/* Image Gallery */}
+      <section className="px-6 py-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <img
+              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+              alt="Event 1"
+              className="w-full h-64 object-cover rounded-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622"
+              alt="Event 2"
+              className="w-full h-64 object-cover rounded-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3"
+              alt="Event 3"
+              className="w-full h-64 object-cover rounded-lg"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3"
+              alt="Event 4"
+              className="w-full h-64 object-cover rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Categories */}
       <section className="px-6 py-16 bg-gray-50">
