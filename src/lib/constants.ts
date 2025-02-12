@@ -1,15 +1,10 @@
-import { Home, Heart, Palette, Box, DollarSign, Image, Mail, ShoppingBag, BookOpen, LucideIcon } from "lucide-react";
+import { Home, Box, Workflow, HelpCircle, LucideIcon } from "lucide-react";
 
 export const navigation: { name: string; href: string; icon: LucideIcon }[] = [
   { name: "Home", href: "/", icon: Home },
-  { name: "Wedding Package", href: "/wedding-package", icon: Heart },
-  { name: "Event Styling", href: "/event-styling", icon: Palette },
-  { name: "Rental", href: "/rental", icon: Box },
-  { name: "Pricing", href: "/pricing", icon: DollarSign },
-  { name: "Wedding Gallery", href: "/gallery", icon: Image },
-  { name: "Contact", href: "/contact", icon: Mail },
-  { name: "Shop", href: "/shop", icon: ShoppingBag },
-  { name: "Blog", href: "/blog", icon: BookOpen },
+  { name: "Our Rentals", href: "/rentals", icon: Box },
+  { name: "Our Process", href: "/process", icon: Workflow },
+  { name: "FAQ", href: "/faq", icon: HelpCircle },
 ];
 
 export type PurchaseMode = "buy" | "rent";
@@ -65,7 +60,7 @@ export const categories = [
 export const testimonials = [
   {
     name: "Sarah & Michael",
-    text: "Thank you for making our wedding day absolutely perfect! The decor was stunning and exactly what we envisioned. Your attention to detail and professionalism made everything stress-free.",
+    text: "Thank you for making our wedding day absolutely perfect! The decor was stunning and exactly what we envisioned.",
   },
   {
     name: "Emily & James",
