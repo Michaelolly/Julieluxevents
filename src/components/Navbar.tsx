@@ -1,97 +1,138 @@
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
+import { ShoppingCart, LogIn, LogOut, Settings } from 'lucide-react';
 
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Menu, ShoppingCart, X } from "lucide-react";
-import { Button } from "./ui/button";
-import { navigation } from "@/lib/constants";
+const Navbar: React.FC = () => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
-export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
+  const navLinks = user ? [
+    { href: '/rentals', label: 'Rentals' },
+    { href: '/equipment', label: 'Equipment' },
+    { href: '/gallery', label: 'Gallery' },
+  ] : [
+    { href: '/', label: 'Home' },
+    { href: '/rentals', label: 'Rentals' },
+    { href: '/process', label: 'Process' },
+    { href: '/quote', label: 'Quote' },
+    { href: '/gallery', label: 'Gallery' },
+  ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-lg bg-white/80">
-      <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-        <div className="flex lg:flex-1">
-          <a href="/" className="-m-1.5 p-1.5">
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
-              Julieluxevents
-            </span>
-          </a>
-        </div>
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={() => setMobileMenuOpen(true)}
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 100 }}
+      className="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm"
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <span className="sr-only">Open main menu</span>
-            <Menu className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-        <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="text-sm font-semibold leading-6 text-gray-900 hover:text-primary-400 transition-colors flex items-center gap-2"
-            >
-              <item.icon className="h-4 w-4" />
-              {item.name}
-            </a>
-          ))}
-        </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4">
-          <Button variant="ghost" className="hover:text-primary-400">
-            <ShoppingCart className="h-5 w-5" />
-          </Button>
-          <Button variant="outline" className="hover:bg-primary-100">
-            Sign in
-          </Button>
-          <Button>Sign up</Button>
-        </div>
-      </nav>
-      <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-        <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <a href="/" className="-m-1.5 p-1.5">
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600">
-                Julieluxevents
-              </span>
-            </a>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <X className="h-6 w-6" aria-hidden="true" />
-            </button>
+            <Link to="/" className="font-display text-2xl font-bold text-emerald-800">
+              Julie's Luxe
+            </Link>
+          </motion.div>
+
+          <div className="hidden md:flex space-x-8">
+            {navLinks.map((link, index) => (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <Link
+                  to={link.href}
+                  className="text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
           </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex items-center gap-2"
+
+          <div className="flex items-center space-x-4">
+            {user ? (
+              <>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <Link to="/cart">
+                    <Button variant="ghost" size="icon" className="relative">
+                      <ShoppingCart className="h-5 w-5 text-emerald-600" />
+                    </Button>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <Link to="/settings">
+                    <Button variant="ghost" size="icon">
+                      <Settings className="h-5 w-5 text-emerald-600" />
+                    </Button>
+                  </Link>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleSignOut}
+                    className="text-emerald-600 hover:text-emerald-700"
                   >
-                    <item.icon className="h-5 w-5" />
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-              <div className="py-6 space-y-2">
-                <Button variant="outline" className="w-full justify-center">
-                  Sign in
-                </Button>
-                <Button className="w-full justify-center">Sign up</Button>
-              </div>
-            </div>
+                    <LogOut className="h-5 w-5" />
+                  </Button>
+                </motion.div>
+              </>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <Link to="/signin">
+                  <Button 
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform"
+                  >
+                    <motion.div
+                      className="flex items-center"
+                      whileHover={{ gap: '8px' }}
+                    >
+                      <LogIn className="h-5 w-5" />
+                      <span>Sign In</span>
+                    </motion.div>
+                  </Button>
+                </Link>
+              </motion.div>
+            )}
           </div>
-        </Dialog.Panel>
-      </Dialog>
-    </header>
+        </div>
+      </div>
+    </motion.nav>
   );
-}
+};
+
+export default Navbar;

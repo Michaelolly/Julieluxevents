@@ -1,33 +1,72 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Rentals from './pages/Rentals';
+import Equipment from './pages/Equipment';
+import Gallery from './pages/Gallery';
+import Cart from './pages/Cart';
+import SignIn from './pages/SignIn';
+import Settings from './pages/Settings';
+import Checkout from './pages/Checkout';
+import NotFound from './pages/NotFound';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './contexts/AuthContext';
+import { CartProvider } from './contexts/CartContext';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Rentals from "./pages/Rentals";
-import Process from "./pages/Process";
-import FAQ from "./pages/FAQ";
-import NotFound from "./pages/NotFound";
+function App() {
+  return (
+    <Router>
+      <AuthProvider>
+        <CartProvider>
+          <div className="min-h-screen bg-white">
+            <Navbar />
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={
+                <ProtectedRoute requireAuth={false}>
+                  <Home />
+                </ProtectedRoute>
+              } />
+              
+              {/* Mixed access routes */}
+              <Route path="/rentals" element={<Rentals />} />
+              <Route path="/equipment" element={<Equipment />} />
+              <Route path="/gallery" element={<Gallery />} />
+              
+              {/* Authentication routes */}
+              <Route path="/signin" element={
+                <ProtectedRoute requireAuth={false}>
+                  <SignIn />
+                </ProtectedRoute>
+              } />
 
-const queryClient = new QueryClient();
+              {/* Protected routes */}
+              <Route path="/cart" element={
+                <ProtectedRoute>
+                  <Cart />
+                </ProtectedRoute>
+              } />
+              <Route path="/checkout" element={
+                <ProtectedRoute>
+                  <Checkout />
+                </ProtectedRoute>
+              } />
+              <Route path="/settings" element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              } />
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/rentals" element={<Rentals />} />
-          <Route path="/process" element={<Process />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+              {/* 404 route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Toaster position="bottom-right" />
+          </div>
+        </CartProvider>
+      </AuthProvider>
+    </Router>
+  );
+}
 
 export default App;

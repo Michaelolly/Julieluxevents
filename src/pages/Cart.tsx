@@ -1,138 +1,153 @@
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
+import { useCart } from '@/contexts/CartContext';
+import { Trash2, Plus, Minus, LogIn } from 'lucide-react';
 
-import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
-import { useState } from "react";
+const Cart: React.FC = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const { items, removeItem, updateQuantity, total } = useCart();
 
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
-
-export default function Cart() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      name: "Welcome Sign (Hard Foam board)",
-      price: 100,
-      image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07",
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "Head Table Flower Set",
-      price: 699,
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-      quantity: 1,
-    },
-  ]);
-
-  const updateQuantity = (id: number, change: number) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen pt-20 bg-gradient-to-b from-white to-gold-50">
+        <div className="container mx-auto px-4 py-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h1 className="text-3xl font-display font-bold text-gold-800 mb-4">
+              Sign in to View Your Cart
+            </h1>
+            <p className="text-gold-600 text-lg mb-8">
+              Please sign in to view and manage your cart items
+            </p>
+            <Button
+              onClick={() => navigate('/signin')}
+              className="bg-gradient-to-r from-gold-500 to-gold-700 hover:from-gold-600 hover:to-gold-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-3"
+            >
+              <LogIn className="w-5 h-5 mr-2" />
+              Sign In
+            </Button>
+          </motion.div>
+        </div>
+      </div>
     );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const tax = subtotal * 0.13;
-  const total = subtotal + tax;
+  }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      
-      <div className="max-w-7xl mx-auto px-4 py-24">
-        <div className="flex items-center gap-2 mb-8">
-          <ShoppingCart className="h-8 w-8 text-primary-400" />
-          <h1 className="text-3xl font-bold">Shopping Cart</h1>
-        </div>
+    <div className="min-h-screen pt-20 bg-gradient-to-b from-white to-gold-50">
+      <div className="container mx-auto px-4 py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto"
+        >
+          <h1 className="text-3xl font-display font-bold text-gold-800 mb-8">
+            Your Cart
+          </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <div className="space-y-4">
-              {cartItems.map((item) => (
-                <Card key={item.id}>
-                  <CardContent className="flex items-center gap-4 p-4">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-24 h-24 object-cover rounded-lg"
-                    />
-                    <div className="flex-1">
-                      <h3 className="font-semibold">{item.name}</h3>
-                      <p className="text-gray-600">${item.price.toFixed(2)}</p>
-                      <div className="flex items-center gap-2 mt-2">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => updateQuantity(item.id, -1)}
-                        >
-                          <Minus className="h-4 w-4" />
-                        </Button>
-                        <span className="w-8 text-center">{item.quantity}</span>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => updateQuantity(item.id, 1)}
-                        >
-                          <Plus className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          size="icon"
-                          className="ml-auto"
-                          onClick={() => removeItem(item.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+          {items.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gold-600 text-lg mb-6">Your cart is empty</p>
+              <Button
+                onClick={() => navigate('/rentals')}
+                className="bg-gradient-to-r from-gold-500 to-gold-700 hover:from-gold-600 hover:to-gold-800 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                Browse Rentals
+              </Button>
+            </div>
+          ) : (
+            <div className="bg-white rounded-2xl shadow-xl p-6 border border-gold-100">
+              <div className="space-y-6">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center gap-4 p-4 border-b border-gold-100 last:border-0"
+                  >
+                    {item.image && (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-24 h-24 object-cover rounded-lg"
+                      />
+                    )}
+                    <div className="flex-grow">
+                      <h3 className="text-lg font-semibold text-gold-800">
+                        {item.name}
+                      </h3>
+                      <p className="text-gold-600">
+                        ${item.price.toFixed(2)} per item
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Button
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        variant="outline"
+                        size="sm"
+                        className="border-gold-200 hover:border-gold-300 text-gold-600"
+                        disabled={item.quantity <= 1}
+                      >
+                        <Minus className="w-4 h-4" />
+                      </Button>
+                      <span className="w-8 text-center font-medium">
+                        {item.quantity}
+                      </span>
+                      <Button
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        variant="outline"
+                        size="sm"
+                        className="border-gold-200 hover:border-gold-300 text-gold-600"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    <div className="text-right min-w-[100px]">
+                      <div className="font-semibold text-gold-800">
+                        ${(item.price * item.quantity).toFixed(2)}
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+                    <Button
+                      onClick={() => removeItem(item.id)}
+                      variant="outline"
+                      size="sm"
+                      className="text-red-500 hover:text-red-700 border-red-200 hover:border-red-300"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
 
-          <div>
-            <Card>
-              <CardHeader>
-                <CardTitle>Order Summary</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Tax (13%)</span>
-                    <span>${tax.toFixed(2)}</span>
-                  </div>
-                  <div className="border-t pt-2 mt-2">
-                    <div className="flex justify-between font-bold">
-                      <span>Total</span>
-                      <span>${total.toFixed(2)}</span>
-                    </div>
-                  </div>
-                  <Button className="w-full mt-4">Proceed to Checkout</Button>
+              <div className="mt-8 border-t border-gold-100 pt-6">
+                <div className="flex justify-between items-center mb-6">
+                  <span className="text-xl font-semibold text-gold-800">
+                    Total
+                  </span>
+                  <span className="text-2xl font-bold text-gold-800">
+                    ${total.toFixed(2)}
+                  </span>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+
+                <Button
+                  onClick={() => navigate('/checkout')}
+                  className="w-full bg-gold-600 hover:bg-gold-700 text-white font-semibold py-4 rounded-lg transition-colors"
+                >
+                  Proceed to Checkout
+                </Button>
+              </div>
+            </div>
+          )}
+        </motion.div>
       </div>
     </div>
   );
-}
+};
+
+export default Cart;

@@ -1,0 +1,13 @@
+$url = "https://youtu.be/LnXhhZ2so-Q"
+$outputPath = "public/videos/background.mp4"
+
+Write-Host "Please download the video from: $url"
+Write-Host "And save it to: $outputPath"
+Write-Host ""
+Write-Host "Steps:"
+Write-Host "1. Visit https://youtu.be/LnXhhZ2so-Q"
+Write-Host "2. Use a YouTube video downloader service (like y2mate.com or similar)"
+Write-Host "3. Download the video in MP4 format"
+Write-Host "4. Save it as 'background.mp4' in the 'public/videos' folder"
+Write-Host ""
+Write-Host "After downloading, the video will automatically play in the background of your hero section."

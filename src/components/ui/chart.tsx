@@ -1,5 +1,7 @@
 import * as React from "react"
-import * as RechartsPrimitive from "recharts"
+import { Tooltip, Legend, ResponsiveContainer, TooltipProps } from "recharts"
+import type { Payload } from "recharts/types/component/DefaultTooltipContent"
+import type { ValueType, NameType } from "recharts/types/component/DefaultTooltipContent"
 
 import { cn } from "@/lib/utils"
 
@@ -37,7 +39,7 @@ const ChartContainer = React.forwardRef<
   React.ComponentProps<"div"> & {
     config: ChartConfig
     children: React.ComponentProps<
-      typeof RechartsPrimitive.ResponsiveContainer
+      typeof ResponsiveContainer
     >["children"]
   }
 >(({ id, className, children, config, ...props }, ref) => {
@@ -56,9 +58,9 @@ const ChartContainer = React.forwardRef<
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <RechartsPrimitive.ResponsiveContainer>
+        <ResponsiveContainer>
           {children}
-        </RechartsPrimitive.ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
     </ChartContext.Provider>
   )
@@ -98,11 +100,11 @@ ${colorConfig
   )
 }
 
-const ChartTooltip = RechartsPrimitive.Tooltip
+const ChartTooltip = Tooltip
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+  React.ComponentProps<typeof Tooltip> &
     React.ComponentProps<"div"> & {
       hideLabel?: boolean
       hideIndicator?: boolean
@@ -183,8 +185,8 @@ const ChartTooltipContent = React.forwardRef<
       >
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
-          {payload.map((item, index) => {
-            const key = `${nameKey || item.name || item.dataKey || "value"}`
+          {payload.map((item: Payload<ValueType, NameType>, index: number) => {
+            const key = `${nameKey || item.dataKey || "value"}`
             const itemConfig = getPayloadConfigFromPayload(config, item, key)
             const indicatorColor = color || item.payload.fill || item.color
 
@@ -254,22 +256,27 @@ const ChartTooltipContent = React.forwardRef<
 )
 ChartTooltipContent.displayName = "ChartTooltip"
 
-const ChartLegend = RechartsPrimitive.Legend
+const ChartLegend = Legend
 
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-      hideIcon?: boolean
-      nameKey?: string
-    }
+  React.ComponentProps<"div"> & {
+    payload?: Array<Payload<ValueType, NameType>>
+    className?: string
+    align?: "left" | "center" | "right"
+    verticalAlign?: "top" | "middle" | "bottom"
+    iconSize?: number
+    iconType?: "line" | "square" | "rect" | "circle" | "cross" | "diamond" | "star" | "triangle" | "wye"
+    layout?: "horizontal" | "vertical"
+    nameKey?: string
+    formatter?: (value: any, entry: any, index: number) => React.ReactNode
+    config: ChartConfig
+  }
 >(
   (
-    { className, hideIcon = false, payload, verticalAlign = "bottom", nameKey },
+    { className, payload, verticalAlign = "bottom", nameKey, config },
     ref
   ) => {
-    const { config } = useChart()
-
     if (!payload?.length) {
       return null
     }
@@ -283,24 +290,24 @@ const ChartLegendContent = React.forwardRef<
           className
         )}
       >
-        {payload.map((item) => {
+        {payload.map((item: Payload<ValueType, NameType>) => {
           const key = `${nameKey || item.dataKey || "value"}`
           const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
           return (
             <div
-              key={item.value}
+              key={item.dataKey}
               className={cn(
                 "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground"
               )}
             >
-              {itemConfig?.icon && !hideIcon ? (
+              {itemConfig?.icon ? (
                 <itemConfig.icon />
               ) : (
                 <div
                   className="h-2 w-2 shrink-0 rounded-[2px]"
                   style={{
-                    backgroundColor: item.color,
+                    backgroundColor: item.payload.fill || item.color,
                   }}
                 />
               )}

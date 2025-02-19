@@ -1,69 +1,73 @@
-# Welcome to your Lovable project
+# Julie's Luxe Events
 
-## Project info
+A modern event rental platform for Julie's Luxe Events in Sudbury, Ontario.
 
-**URL**: https://lovable.dev/projects/d9523504-027e-40f5-b077-319a4be648c3
+## Features
 
-## How can I edit this code?
+- 🎉 Event Gear Rental
+- 🔐 Secure Authentication (NextAuth.js)
+- 💫 Modern UI with Framer Motion
+- 📱 Responsive Design
+- 🛒 Shopping Cart
+- 💬 Quote System
+- 📍 Location Services
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- React with TypeScript
+- Next.js
+- NextAuth.js for Authentication
+- Supabase for Database
+- Tailwind CSS for Styling
+- Framer Motion for Animations
+- React Router for Navigation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d9523504-027e-40f5-b077-319a4be648c3) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+1. Clone the repository:
+```bash
+git clone https://github.com/Michaelolly/Julieluxevents.git
+```
 
-**Use your preferred IDE**
+2. Install dependencies:
+```bash
+npm install
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+3. Set up environment variables:
+Create a `.env.local` file with:
+```env
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-key
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+4. Run the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The application is deployed on GitHub Pages. Each push to the main branch triggers an automatic deployment.
 
-**Use GitHub Codespaces**
+## Contributing
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## What technologies are used for this project?
+## License
 
-This project is built with .
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Contact
 
-## How can I deploy this project?
+Julie's Luxe Events - [@juliesluxeevents](https://instagram.com/juliesluxeevents)
 
-Simply open [Lovable](https://lovable.dev/projects/d9523504-027e-40f5-b077-319a4be648c3) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Project Link: [https://github.com/Michaelolly/Julieluxevents](https://github.com/Michaelolly/Julieluxevents)
